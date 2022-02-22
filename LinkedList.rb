@@ -27,7 +27,7 @@ class LinkedList
     @head_node = node
   end
 
-  def instert_at(value, index)
+  def insert_at(value, index)
     # todo
   end
 
