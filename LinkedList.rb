@@ -27,6 +27,14 @@ class LinkedList
     @head_node = node
   end
 
+  def instert_at(value, index)
+    # todo
+  end
+
+  def remove_at(value, index)
+    # todo
+  end
+
   def at(index)
     curr_node = @head_node
     for i in 0..index
@@ -37,16 +45,7 @@ class LinkedList
     end
   end
 
-  # def find_new_tail(node)
-  #   return @tail_node = node if node.next_node == @tail_node
-
-  #   find_new_tail(node.next_node)
-  # end
-
   def pop
-    # @tail_node = nil
-    # find_new_tail(@head_node)
-
     curr_node = @head_node
     curr_node = curr_node.next_node until curr_node.next_node == @tail_node
     @tail_node = curr_node
