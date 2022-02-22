@@ -16,19 +16,22 @@ class LinkedList
     @tail_node = node
   end
 
+  # Creates a new node with value at the end of the list
   def append(value)
     @tail_node.next_node = Node.new(value)
     @tail_node = @tail_node.next_node
   end
 
+  # Creates a new node with value at the beginning of the LinkedList
   def prepend(value)
     node = Node.new(value)
     node.next_node = @head_node
     @head_node = node
   end
 
+  # Creates a new node with value at index
   def insert_at(value, index)
-    return prepend(value) if index == 0
+    return prepend(value) if index.zero?
 
     curr_node = @head_node
     prev_node = @head_node
@@ -41,13 +44,31 @@ class LinkedList
       prev_node = curr_node
       curr_node = curr_node.next_node
     end
-    nil
+    nil # returns nil if index out-of-bounds
   end
 
-  def remove_at(value, index)
-    # todo
+  # Removes the current head and sets the node after it to the new head
+  def remove_head
+    @head_node = @head_node.next_node
   end
 
+  # Removes the node at index
+  def remove_at(index)
+    return remove_head() if index.zero?
+
+    curr_node = @head_node
+    prev_node = @head_node
+    for i in 0..index
+      if i == index
+        prev_node.next_node = curr_node.next_node
+        return curr_node = nil
+      end
+      prev_node = curr_node
+      curr_node = curr_node.next_node
+    end
+  end
+
+  # Returns the value of the node at index
   def at(index)
     curr_node = @head_node
     for i in 0..index
@@ -58,6 +79,7 @@ class LinkedList
     end
   end
 
+  # Removes the last node on the LinkedList
   def pop
     curr_node = @head_node
     curr_node = curr_node.next_node until curr_node.next_node == @tail_node
@@ -79,6 +101,7 @@ class LinkedList
     nil
   end
 
+  # Returns the LinkedList formatted as a string
   def to_s
     curr_node = @head_node
     string = ''
@@ -109,4 +132,8 @@ linked.append(7)
 puts linked.to_s
 puts linked.at(5)
 linked.insert_at(789, 3)
+puts linked.to_s
+linked.remove_at(3)
+puts linked.to_s
+linked.remove_at(1)
 puts linked.to_s
