@@ -28,7 +28,20 @@ class LinkedList
   end
 
   def insert_at(value, index)
-    # todo
+    return prepend(value) if index == 0
+
+    curr_node = @head_node
+    prev_node = @head_node
+    for i in 0..index
+      if i == index
+        new_node = Node.new(value)
+        prev_node.next_node = new_node
+        return new_node.next_node = curr_node
+      end
+      prev_node = curr_node
+      curr_node = curr_node.next_node
+    end
+    nil
   end
 
   def remove_at(value, index)
@@ -95,3 +108,5 @@ linked.append(42)
 linked.append(7)
 puts linked.to_s
 puts linked.at(5)
+linked.insert_at(789, 3)
+puts linked.to_s
