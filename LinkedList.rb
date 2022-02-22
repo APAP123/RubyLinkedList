@@ -10,7 +10,7 @@ end
 # Represents the entire LinkedList
 class LinkedList
   attr_accessor :head_node, :tail_node
-  
+
   def initialize(node)
     @head_node = node
     @tail_node = node
@@ -31,26 +31,37 @@ class LinkedList
     curr_node = @head_node
     for i in 0..index
       return curr_node.value if i == index
-      return nil if curr_node.next.nil?
+      return nil if curr_node.next_node.nil?
+
+      curr_node = curr_node.next_node
     end
   end
 
-  def find_new_tail(node)
-    return @tail_node = node if node.next_node == nil
-    find_new_tail(node.next_node)
-  end
+  # def find_new_tail(node)
+  #   return @tail_node = node if node.next_node == @tail_node
+
+  #   find_new_tail(node.next_node)
+  # end
 
   def pop
-    @tail_node = nil
-    find_new_tail(@head_node)
+    # @tail_node = nil
+    # find_new_tail(@head_node)
+
+    curr_node = @head_node
+    curr_node = curr_node.next_node until curr_node.next_node == @tail_node
+    @tail_node = curr_node
+    tail_node.next_node = nil
+    tail_node
   end
 
+  # Looks for and returns index of node that matches passed value (starting from 0); returns nil if not found
   def contains?(value)
     curr_node = @head_node
     index = 0
     until curr_node.nil?
       return index if curr_node.value == value
 
+      curr_node = curr_node.next_node
       index += 1
     end
     nil
@@ -75,3 +86,13 @@ linked.append(4)
 linked.append(5)
 
 puts linked.to_s
+puts linked.pop.value
+puts linked.to_s
+puts linked.contains?(2)
+linked.prepend(13)
+puts linked.to_s
+linked.append(57)
+linked.append(42)
+linked.append(7)
+puts linked.to_s
+puts linked.at(5)
